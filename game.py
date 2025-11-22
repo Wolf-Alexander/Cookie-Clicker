@@ -109,7 +109,7 @@ while running:
     pygame_widgets.update(events)
 
     font = pygame.font.Font(None, 36)   # Schriftart & Größe
-    text_surface = font.render("Store", True, (255, 255, 255))  # Text, Anti-Alias, Farbe
+    text_surface = font.render("Store", True, (0, 0, 0))  # Text, Anti-Alias, Farbe
     screen.blit(text_surface, (750, 10))   # Text an (x, y) zeichnen
 
 
