@@ -267,6 +267,7 @@ sound = pygame.mixer.Sound("Assets/sounds/background music.mp3")
 # --- Main Game Loop ---
 
 running = True
+frame = 0
 while running:
     events = pygame.event.get()
     mouse = pygame.mouse.get_pos()
@@ -332,8 +333,8 @@ while running:
 
     # passive income Anzeige (darunter)
     value_font = pygame.font.Font(None, 32)
-    value_text = value_font.render(f"+${passive_income / FPS} per second", True, (100, 100, 100))
-    screen.blit(value_text, (20, 150))
+    value_text = value_font.render(f"+${passive_income} per second", True, (100, 100, 100))
+    screen.blit(value_text, (20, 100))
     
     # Speaker Icon
     if toggle == -1:
@@ -361,7 +362,10 @@ while running:
         screen.blit(cursor_image, cursor_rect)
 
     # passive income
-    money += passive_income
+    frame ++
+    if frame == 60:
+        money += passive_income
+        frame = 0
     
     # Update Display
     pygame.display.flip()
