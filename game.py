@@ -11,6 +11,14 @@ screen = pygame.display.set_mode((1000, 600))
 pygame.display.set_caption("Simple Game Loop")
 clock = pygame.time.Clock()
 
+# Lade das Cursorbild von GitHub
+cursor_image = pygame.image.load("Baby_Opener.png")  # gespeicherter cursor
+cursor_image = pygame.transform.scale(cursor_image, (100, 100))  # Größe vom Öffner
+cursor_rect = cursor_image.get_rect()
+
+# Setze den Mauszeiger standardmäßig unsichtbar
+pygame.mouse.set_visible(False)
+
 class ShopButton:
     def __init__(self, screen, x, y, width, height, name, price):
         self.screen = screen
@@ -66,6 +74,23 @@ while running:
     screen.fill((255, 255, 255))
     # Grenzposition
     boundary_x = 600
+    mouse_x, mouse_y = pygame.mouse.get_pos()
+
+    # Wenn die Maus links von der Grenze ist, bleibt der benutzerdefinierte Cursor sichtbar
+    if mouse_x < 600:
+        # Zeige benutzerdefinierten Cursor
+        cursor_rect.center = (mouse_x, mouse_y)
+        screen.fill((0, 0, 0))
+        pygame.draw.line(screen, (255, 255, 255), (600, 0), (600, 600), 2)
+        pygame.mouse.set_visible(False)
+        screen.blit(cursor_image, cursor_rect)  # Zeige den benutzerdefinierten Cursor
+    else:
+        # Wenn die Maus über der Grenze ist, wird der benutzerdefinierte Cursor unsichtbar
+        # Nur der Standard-Mauscursor ist unsichtbar
+        pygame.mouse.set_visible(True)
+        screen.fill((0, 0, 0))
+        pygame.draw.line(screen, (255, 255, 255), (600, 0), (600, 600), 2)
+
 
     #Objekte zeichnen
     #BLUE=(50,120,255)
