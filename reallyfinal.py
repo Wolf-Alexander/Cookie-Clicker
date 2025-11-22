@@ -128,10 +128,10 @@ class Cookie(Button):
 class Cookies:
     def __init__(self, amount, radius, pos=(0, 0)):
         self.pos = pos
-        self.image = pygame.image.load('cookie.png')
-        self.image = pygame.transform.scale(self.image, (300, 300))
-        self.image_clicked = pygame.image.load('cookie_clicked.png')
-        self.image_clicked = pygame.transform.scale(self.image_clicked, (300, 300))
+        self.image = pygame.image.load('Assets/Flaschen/ClubMate.png')
+        self.image = pygame.transform.scale(self.image, (600, 250))
+        self.image_clicked = pygame.image.load('Assets/Flaschen/ClubMate.png')
+        self.image_clicked = pygame.transform.scale(self.image_clicked, (600, 250))
         self.amount = amount
 
         if amount == 1:
@@ -231,7 +231,9 @@ cookies_arr = Cookies(
 )
 
 # Control Buttons (Audio, Retry)
+
 control_buttons = []
+"""
 control_buttons.append(Button_Toggle(
     pygame.image.load("audio_on.png"),
     pygame.image.load("audio_off.png"),
@@ -244,6 +246,7 @@ control_buttons.append(Button(
     (180, display_height - 60),
     0.9
 ))
+"""
 
 # Shop Buttons
 shop_buttons = []
@@ -328,7 +331,7 @@ while running:
         image = pygame.image.load("Assets/SpeakerWithX.png")
     else:
         image = pygame.image.load("Assets/Speaker.png")
-    x, y = 50, 50
+    x, y = 530, 25
     image = pygame.transform.scale(image, (40, 40))
     rect = image.get_rect()
     rect.topleft = (x, y)
