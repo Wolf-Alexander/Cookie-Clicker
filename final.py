@@ -194,19 +194,22 @@ cookies_arr = Cookies(
 
 # Control Buttons (Audio, Retry)
 control_buttons = []
+"""
 control_buttons.append(Button_Toggle(
     pygame.image.load("audio_on.png"),
     pygame.image.load("audio_off.png"),
     (60, display_height - 60),
     0.9
 ))
+"""
+"""
 control_buttons.append(Button(
     pygame.image.load("retry.png"),
     pygame.image.load("retry.png"),
     (180, display_height - 60),
     0.9
 ))
-
+"""
 # Shop Buttons
 shop_buttons = []
 shop_buttons.append(ShopButton(screen, 650, 100, 300, 30, "Upgrade Bottle", 10))
