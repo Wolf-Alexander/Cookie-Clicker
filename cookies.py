@@ -191,6 +191,12 @@ if __name__ == "__main__":
         (60, display_height - 60),
         0.9
     ))
+    buttons.append(Button(
+        pygame.image.load("retry.png"),
+        pygame.image.load("retry.png"),
+        (180, display_height - 60),
+        0.9
+    ))
 
     running = True
     while running:
