@@ -2,7 +2,6 @@
 # --- imports ---
 
 import pygame
-import cookie
 import math
 
 
