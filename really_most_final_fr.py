@@ -214,12 +214,15 @@ def upgrade_double_click():
     click_value *= 2
 
 def upgrade_passive_income():
+    global passive_income
     passive_income += 1
 
 def upgrade_production_boost():
+    global passive_income
     passive_income *= floor(1.1)
 
 def upgrade_bottle_factory():
+    global passive_income
     passive_income += 8
 
 # --- Initialisierung ---
@@ -330,7 +333,7 @@ while running:
     # passive income Anzeige (darunter)
     value_font = pygame.font.Font(None, 32)
     value_text = value_font.render(f"+${passive_income / FPS} per second", True, (100, 100, 100))
-    screen.blit(value_text, (50, 60))
+    screen.blit(value_text, (20, 150))
     
     # Speaker Icon
     if toggle == -1:
