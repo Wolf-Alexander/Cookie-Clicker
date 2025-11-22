@@ -130,9 +130,9 @@ class Cookie(Button):
 class Cookies:
     def __init__(self, amount, radius, pos=(0, 0)):
         self.pos = pos
-        self.image = pygame.image.load('Assets/Flaschen/ClubMate.png')
+        self.image = pygame.image.load('Assets/Flaschen/Paulaner_Spezi_Pixel.png')
         self.image = pygame.transform.scale(self.image, (600, 250))
-        self.image_clicked = pygame.image.load('Assets/Flaschen/ClubMate.png')
+        self.image_clicked = pygame.image.load('Assets/Flaschen/Paulaner_Spezi_Pixel.png')
         self.image_clicked = pygame.transform.scale(self.image_clicked, (600, 250))
         self.amount = amount
 
