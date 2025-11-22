@@ -219,7 +219,7 @@ def upgrade_passive_income():
 
 def upgrade_production_boost():
     global passive_income
-    passive_income *= floor(1.1)
+    passive_income = math.floor(passive_income * 1.1)
 
 def upgrade_bottle_factory():
     global passive_income
