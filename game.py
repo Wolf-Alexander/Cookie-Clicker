@@ -12,7 +12,7 @@ pygame.display.set_caption("Simple Game Loop")
 clock = pygame.time.Clock()
 
 # Lade das Cursorbild von GitHub
-cursor_image = pygame.image.load("Baby_Opener.png")  # gespeicherter cursor
+cursor_image = pygame.image.load("Assets/Öffner/Baby_Opener.png")  # gespeicherter cursor
 cursor_image = pygame.transform.scale(cursor_image, (100, 100))  # Größe vom Öffner
 cursor_rect = cursor_image.get_rect()
 
@@ -52,7 +52,7 @@ button6 = ShopButton(screen, 650, 480, 300, 30,"Bottle Factory", 60)
 
 
 running = True
-sound=pygame.mixer.Sound("background music.mp3")
+sound=pygame.mixer.Sound("Assets/sounds/background music.mp3")
 while running:
     events = pygame.event.get()
     for event in events:
@@ -80,7 +80,6 @@ while running:
     if mouse_x < 600:
         # Zeige benutzerdefinierten Cursor
         cursor_rect.center = (mouse_x, mouse_y)
-        screen.fill((0, 0, 0))
         pygame.draw.line(screen, (255, 255, 255), (600, 0), (600, 600), 2)
         pygame.mouse.set_visible(False)
         screen.blit(cursor_image, cursor_rect)  # Zeige den benutzerdefinierten Cursor
@@ -88,7 +87,6 @@ while running:
         # Wenn die Maus über der Grenze ist, wird der benutzerdefinierte Cursor unsichtbar
         # Nur der Standard-Mauscursor ist unsichtbar
         pygame.mouse.set_visible(True)
-        screen.fill((0, 0, 0))
         pygame.draw.line(screen, (255, 255, 255), (600, 0), (600, 600), 2)
 
 
@@ -99,8 +97,8 @@ while running:
 
     #Bild einfügen
     if toggle==-1:
-        image=pygame.image.load("SpeakerWithX.png")
-    else: image=pygame.image.load("Speaker.png")
+        image=pygame.image.load("Assets/SpeakerWithX.png")
+    else: image=pygame.image.load("Assets/Speaker.png")
     x=50
     y=50
     image=pygame.transform.scale(image,(40,40))
