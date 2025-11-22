@@ -1,10 +1,12 @@
 
+# --- imports ---
+
 import pygame
 import cookie
 import math
 
 
-# --- variables
+# --- variables ---
 
 FPS = 60
 display_width = 1000
@@ -14,14 +16,13 @@ display_height = 600
 # --- classes ---
 
 class Button:
-    def __init__ (self, image_unpressed, image_pressed, pos, pressed_size):
+    def __init__ (self, image_unpressed, image_pressed, pos):
         self.image_unpressed = image_unpressed
         self.image_pressed = image_pressed
         self.image = self.image_unpressed
         rect = self.image.get_rect()
         self.dimensions = (rect[2], rect[3])
         self.pos = pos
-        self.pressed_size = pressed_size
 
     def under_mouse (self, cursor):
         return (
@@ -36,7 +37,7 @@ class Button:
             self.image = self.image_unpressed
         if clicked & self.under_mouse(cursor):
             self.image = self.image_pressed
-            self.click_action
+            self.click_action()
     
     def click_action (self):
         print("pressed")
@@ -54,9 +55,28 @@ class Button:
             )
         );
 
+class Button_Toggle (Button):
+    def __init__ (self, image_unpressed, image_pressed, pos):
+        super().__init__(image_unpressed, image_pressed, pos)
+        self.toggled = False
+
+    def handle_mouse (self, cursor, clicked, pressed):
+        if clicked & self.under_mouse(cursor):
+            if (self.toggled):
+                self.toggled = False
+                self.image = self.image_pressed
+                self.click_action()
+            else:
+                self.toggled = True
+                self.image = self.image_unpressed
+                self.unclick_action()
+
+    def unclick_action (self):
+        pass
+
 class Cookie (Button):
-    def __init__ (self, image, image_pressed, pos, pressed_size, id):
-        super().__init__(image, image_pressed, pos, pressed_size)
+    def __init__ (self, image, image_pressed, pos, id):
+        super().__init__(image, image_pressed, pos)
         self.id = id
 
         self.rot = 0
@@ -64,29 +84,34 @@ class Cookie (Button):
 
     def click_action (self):
         print("button pressed")
-        self.rot_vel += 10
+        self.rot_vel += 5
 
     def physics_ig (self):
-        self.rot_vel *= 0.93
+        self.rot_vel *= 0.97
         self.rot += self.rot_vel
 
     def get_frame_image(self):
         return pygame.transform.rotate(self.image, self.rot)
 
 class Cookies:
-    def __init__ (self, amount, radius, image_clicked_scale = (0, 0), pos = (0, 0) ):
+    def __init__ (self, amount, radius, pos = (0, 0) ):
         self.pos = pos
 
         self.image = pygame.image.load('cookie.png')
-        image_dimensions = (
-            self.image.get_rect()[2],
-            self.image.get_rect()[3]
-        )
+        self.image = pygame.transform.scale(self.image, (300, 300))
+
         self.image_clicked = pygame.image.load('cookie_clicked.png')
+        image_clicked_size = (
+            self.image.get_rect()[2] * 0.85,
+            self.image.get_rect()[3] * 0.85
+        )
+        self.image_clicked = pygame.transform.scale(self.image_clicked, image_clicked_size)
 
         self.amount = amount
+
         if amount == 1:
             radius = 0
+
         self.cookies = []
         for i in range(self.amount):
             self.cookies.append( Cookie(
@@ -96,7 +121,6 @@ class Cookies:
                     math.cos(((2*math.pi)/amount) * i) * radius + self.pos[0],
                     math.sin(((2*math.pi)/amount) * i) * radius + self.pos[1]
                 ),
-                pressed_size = 0.8,
                 id = i
                 ))
 
@@ -117,8 +141,15 @@ class Cookies:
 # --- functions ---
 
 def draw ():
+    global buttons
+    global screen
+
     screen.fill("#202020")
+    # draw cookies
     cookies_arr.draw(screen)
+    # draw buttons
+    for button in buttons:
+        button.draw(screen)
 
 
 # --- main ---
@@ -134,9 +165,15 @@ if __name__ == "__main__":
     cookies_arr = Cookies(
         amount = 1,
         radius = 100,
-        image_clicked_scale = (120, 120),
         pos = (300, display_height / 2)
     )
+
+    buttons = []
+    buttons.append(Button_Toggle(
+        pygame.image.load("audio_on.png"),
+        pygame.image.load("audio_off.png"),
+        (60, display_height - 60)
+    ))
 
     running = True
     while running:
@@ -156,10 +193,11 @@ if __name__ == "__main__":
 
         # game mechanics
         cookies_arr.do_stuff()
+        for button in buttons:
+            button.handle_mouse(mouse, mouse_click, pygame.mouse.get_pressed()[0])
 
         # draw
         draw()
-
 
         # update display
         pygame.display.flip()
