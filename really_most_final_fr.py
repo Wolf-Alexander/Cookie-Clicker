@@ -362,7 +362,7 @@ while running:
         screen.blit(cursor_image, cursor_rect)
 
     # passive income
-    frame ++
+    frame += 1
     if frame == 60:
         money += passive_income
         frame = 0
